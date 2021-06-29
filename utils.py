@@ -1,5 +1,6 @@
 import json
 from matplotlib import pyplot as plt
+import numpy as np
 
 def plot_shot_results(job):
     y_pulse_results = job.result(timeout=120)
@@ -34,5 +35,18 @@ def load_value(key : str):
     with open("saved_data.json") as f:
         json_data = json.load(f)
     return json_data[key]
+
+
+def load_Signal(omega, dt, drive_samples, amp_x_path, amp_y_path):
+    amp_x = np.loadtxt(amp_x_path, delimiter = ',')
+    amp_y = np.loadtxt(amp_y_path, delimiter = ',')
+    Signal = np.zeros(drive_samples, np.complex128)
+
+
+    for i in range(len(amp_x)):
+        Signal += amp_x[i] * np.sin(omega * dt * np.arange(drive_samples) * (i+1))
+        Signal += amp_y[i] * np.sin(omega * dt * np.arange(drive_samples) * (i+1)) * 1j
+
+    return Signal
 
 # schedule splitter 
