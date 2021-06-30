@@ -49,4 +49,16 @@ def load_Signal(omega, dt, drive_samples, amp_x_path, amp_y_path):
 
     return Signal
 
+from scipy.optimize import curve_fit
+
+def fit_function(x_values, y_values, function, init_params):
+    fitparams, conv = curve_fit(function, x_values, y_values, init_params)
+    y_fit = function(x_values, *fitparams)
+    
+    return fitparams, y_fit
+
+# center data around 0
+def baseline_remove(values):
+    return np.array(values) - np.mean(values)
+
 # schedule splitter 

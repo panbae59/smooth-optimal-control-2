@@ -10,5 +10,3 @@ class OptimalControl:
         for code in pulse_code_list:
             pulse_list.append(self.gate[code])
         return pulse_list
-smooth_optimal_control = OptimalControl()
-gaussian_optimal_control = OptimalControl()

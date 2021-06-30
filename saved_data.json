@@ -1,10 +1,10 @@
 {
-        "pi_amp": 0.13385855167547026,
-        "convert_factor": 1.64694154415136e-08,
+        "pi_amp": 0.1345808818987161,
+        "convert_factor": 1.6558288034139872e-08,
         "amplitude_multiplier_SOC_pi": 1.0612244897959184,
         "amplitude_multiplier_SOC_pi_over_2": 1.0036136516677678,
-        "amplitude_multiplier_paper_SOC": 5.925646643742295,
-        "amplitude_multiplier_paper_SOC_pi_over_2": 1.7951741580682021,
+        "amplitude_multiplier_paper_SOC": 0.09723361895024156,
+        "amplitude_multiplier_paper_SOC_pi_over_2": 0.027354934293448863,
         "paper_SOC_pi_over_2_angle": -1.6537868217758618,
-        "paper_SOC_pi_angle": 0.8622167140744342
+        "paper_SOC_pi_angle": -0.720765883
 }
