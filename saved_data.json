@@ -3,8 +3,8 @@
         "convert_factor": 1.6558288034139872e-08,
         "amplitude_multiplier_SOC_pi": 1.0612244897959184,
         "amplitude_multiplier_SOC_pi_over_2": 1.0036136516677678,
-        "amplitude_multiplier_paper_SOC": 0.09723361895024156,
-        "amplitude_multiplier_paper_SOC_pi_over_2": 0.027354934293448863,
-        "paper_SOC_pi_over_2_angle": -1.6537868217758618,
-        "paper_SOC_pi_angle": -0.720765883
+        "amplitude_multiplier_paper_SOC": 0.09686719626356484,
+        "amplitude_multiplier_paper_SOC_pi_over_2": 0.025293950237626532,
+        "paper_SOC_pi_over_2_angle": -1.8233859222987254,
+        "paper_SOC_pi_angle": 0.8429214322184153
 }

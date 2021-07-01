@@ -15,6 +15,7 @@ class PaperSmoothOptimalControl(OptimalControl):
     def __init__(self, Q_setup):
         super().__init__()
         self.Q_setup = Q_setup
+        self.sweep = Sweep(self.Q_setup)
         self.set_pulse_params()
         self.set_gates()
 
@@ -50,6 +51,7 @@ class PaperSmoothOptimalControl(OptimalControl):
         self.gate['X'] = ShiftPhase(paper_SOC_pi_angle, self.Q_setup.drive_chan) + Play(pulse_paper_SOC_pi_X, self.Q_setup.drive_chan) + ShiftPhase(-paper_SOC_pi_angle, self.Q_setup.drive_chan)
         self.gate['Y'] = ShiftPhase(paper_SOC_pi_angle, self.Q_setup.drive_chan) + Play(pulse_paper_SOC_pi_Y, self.Q_setup.drive_chan) + ShiftPhase(-paper_SOC_pi_angle, self.Q_setup.drive_chan)
 
+        Signal = self.get_raw_SOC_pi_over_2_Signal()
         amplitude_multiplier_paper_SOC_pi_over_2 = load_value('amplitude_multiplier_paper_SOC_pi_over_2')
         paper_SOC_pi_over_2_angle = load_value('paper_SOC_pi_over_2_angle')
         Signal_final = Signal * amplitude_multiplier_paper_SOC_pi_over_2
@@ -64,7 +66,6 @@ class PaperSmoothOptimalControl(OptimalControl):
         self.gate['-Y/2'] = ShiftPhase(paper_SOC_pi_over_2_angle, self.Q_setup.drive_chan) + Play(pulse_paper_SOC_pi_m_Y_over_2, self.Q_setup.drive_chan) + ShiftPhase(-paper_SOC_pi_over_2_angle, self.Q_setup.drive_chan)
     
     def tune_paper_SOC_pulse(self, base_gate_X_over_2):
-        self.sweep = Sweep(self.Q_setup)
         self.tune_amplitude_pi()
         self.tune_angle_pi(base_gate_X_over_2)
         self.tune_amplitude_pi_over_2()
@@ -111,7 +112,8 @@ class PaperSmoothOptimalControl(OptimalControl):
         plt.ylabel("Measured signal [a.u.]", fontsize=15)
         plt.show()
 
-        paper_SOC_pi_angle = fit_params[2]
+        paper_SOC_pi_angle = fit_params[2] if fit_params[0] > 0 else fit_params[2] + np.pi/2
+
         save_value("paper_SOC_pi_angle", paper_SOC_pi_angle)
 
     def tune_amplitude_pi_over_2(self):

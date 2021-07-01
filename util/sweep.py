@@ -24,7 +24,7 @@ class Sweep:
         draw(schedules[-1], backend = self.Q_setup.backend)
         
         # generate experiment program
-        num_shots_per_point = 8192
+        num_shots_per_point = 1024
         experiment_program = assemble(schedules,
                                     backend=self.Q_setup.backend,
                                     meas_level=2,
@@ -56,7 +56,7 @@ class Sweep:
             
         draw(schedules[-1], backend = self.Q_setup.backend) # is not working! (could be a problem of jupyter)
         # Assemble the schedules into a Qobj
-        num_shots_per_point = 8192
+        num_shots_per_point = 1024
 
         experiment_program = assemble(schedules,
                                     backend=self.Q_setup.backend,
@@ -87,7 +87,7 @@ class Sweep:
         draw(schedules[-1], backend = self.Q_setup.backend) # is not working! (could be a problem of jupyter)
         
         # Assemble the schedules into a Qobj
-        num_shots_per_point = 8192
+        num_shots_per_point = 1024
 
         experiment_program = assemble(schedules,
                                     backend=self.Q_setup.backend,
@@ -130,7 +130,7 @@ class Sweep:
         frequencies_Hz = frequencies_GHz*self.Q_setup.GHz
         schedule_frequencies = [{self.Q_setup.drive_chan: freq} for freq in frequencies_Hz]
         
-        num_shots_per_frequency = 8192
+        num_shots_per_frequency = 1024
         pi_frequency_sweep_program = assemble(schedule,
                                         backend=self.Q_setup.backend, 
                                         meas_level=2,
