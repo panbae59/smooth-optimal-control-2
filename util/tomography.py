@@ -9,7 +9,9 @@ from qiskit.tools.monitor import job_monitor
 from qiskit.pulse import ShiftPhase
 from scipy.linalg import solve
 from scipy.optimize import dual_annealing
+import pandas as pd
 import copy
+import os
 
 class Tomography:
     def __init__(self, Q_setup):
@@ -175,3 +177,23 @@ class Tomography:
         return np.trace(np.matrix(result_process_matrix) @ np.array(np.matrix(ideal_process_matrix).getH())) \
             /np.sqrt(np.trace(np.matrix(result_process_matrix) @ np.array(np.matrix(result_process_matrix).getH()))) \
             /np.sqrt(np.trace(np.matrix(ideal_process_matrix) @ np.array(np.matrix(ideal_process_matrix).getH())))
+
+    def plot_detuning_fidelity(self, csv_path, save_path):
+        from matplotlib import pyplot as plt
+        df = pd.read_csv(csv_path)
+        plt.plot(df['detuning'], df['fidelity'])
+        plt.savefig(save_path)
+        
+    def frequency_sweep_tomography(self, base_gate, X_gate, file_name, save_dir = 'gate_tomography_result'):
+        detuning_length = 10
+        detuning_list = np.linspace(-2*self.Q_setup.MHz, +2*self.Q_setup.MHz, detuning_length)
+        fidelity_list = np.empty(detuning_length)
+        
+        ideal_process_matrix = np.zeros((4, 4))
+        ideal_process_matrix[1][1] = 1
+        for idx, detuning in enumerate(detuning_list):
+            pi_process_matrix = self.gate_tomography(X_gate, base_gate, detuning = detuning)
+            fidelity_list[idx] = self.gate_fidelity(pi_process_matrix.reshape(4, 4), ideal_process_matrix)
+        save_path = os.path.join(save_dir, file_name)
+        df = pd.DataFrame({"detuning" : detuning_list, 'fidelity' : fidelity_list})
+        df.to_csv(save_path)
