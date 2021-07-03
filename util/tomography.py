@@ -1,13 +1,8 @@
 import numpy as np
-from util.utils import plot_shot_results
 from qiskit import pulse
-from qiskit.pulse import Play
-from qiskit.pulse import library as pulse_lib
 from qiskit.visualization.pulse_v2 import draw
 from qiskit import assemble
 from qiskit.tools.monitor import job_monitor
-from qiskit.pulse import ShiftPhase
-from scipy.linalg import solve
 from scipy.optimize import dual_annealing
 import pandas as pd
 import copy
